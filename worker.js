@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 const url = require('url');
 
-const VALID_TOKEN = 'kaijiaxia2026';
+const VALID_TOKEN = 'kajiaxia2026';
 
 const server = http.createServer(async (req, res) => {
   // ----- CORS 预检 -----
