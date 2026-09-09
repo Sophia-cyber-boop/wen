@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>铠甲虾</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            padding: 30px 15px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            padding: 24px 28px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+        .sub {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .group {
+            margin-bottom: 14px;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            font-size: 13px;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+        input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #fafbfc;
+            transition: 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: white;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 4px;
+        }
+        .btn-primary {
+            background: #6366f1;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #a5a7f0;
+        }
+        .btn-success {
+            background: #22c55e;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #16a34a;
+        }
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        .btn-danger:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        }
+        .btn-outline:hover {
+            background: #f3f4f6;
+        }
+        .log-box {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+        .log-box .success {
+            color: #a6e3a1;
+        }
+        .log-box .error {
+            color: #f38ba8;
+        }
+        .log-box .info {
+            color: #89b4fa;
+        }
+        .log-box .warn {
+            color: #f9e2af;
+        }
+        .flex {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .flex .btn {
+            flex: 1;
+        }
+        .hidden {
+            display: none;
+        }
+        .info-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 12px;
+            font-size: 14px;
+            color: #166534;
+        }
+        .info-box strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        #codeDisplay {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 2px solid #22c55e;
+        }
+        #codeDisplay strong {
+            font-size: 14px;
+        }
+        #codeText {
+            font-size: 24px;
+            font-weight: 700;
+            color: #16a34a;
+            display: inline-block;
+            margin-left: 4px;
+        }
+        #copyBtn {
+            width: auto;
+            padding: 4px 16px;
+            margin-left: 12px;
+            display: inline-block;
+        }
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 18px;
+            align-items: center;
+        }
+        .log-header span {
+            font-weight: 500;
+            font-size: 14px;
+            color: #374151;
+        }
+        .warning-banner {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            font-size: 13px;
+            color: #92400e;
+        }
+        .sms-list {
+            margin-top: 10px;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .sms-item {
+            padding: 4px 0;
+            font-size: 14px;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .sms-item:last-child {
+            border-bottom: none;
+        }
+        .sms-item .code {
+            font-weight: 700;
+            color: #16a34a;
+        }
+        .sms-item .time {
+            color: #6b7280;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦐 铠甲虾</h1>
+        <div class="sub">美国 · Blizzard 专用接码</div>
+
+        <div class="warning-banner">
+            ⚠️ 请使用你自己的 API 密钥，本工具仅做代理转发
+        </div>
+
+        <div class="group">
+            <label>🔑 API 密钥</label>
+            <input id="apiKey" type="password" placeholder="请输入你的 API 密钥" value="">
+        </div>
+
+        <button class="btn btn-primary" id="buyBtn">🚀 购买号码</button>
+
+        <div id="card" class="hidden">
+            <div class="info-box" id="cardContent">
+                <strong id="cardPhone">📱 号码</strong>
+                <span id="cardDetails"></span>
+            </div>
+            <div class="flex">
+                <button class="btn btn-success" id="finishBtn">✅ 完成</button>
+                <button class="btn btn-danger" id="cancelBtn">❌ 取消</button>
+            </div>
+        </div>
+
+        <div id="smsList" class="sms-list hidden">
+            <strong>📩 收到的短信：</strong>
+            <div id="smsContainer"></div>
+        </div>
+
+        <div id="codeDisplay" class="hidden">
+            <strong>🎉 最新验证码：</strong>
+            <span id="codeText"></span>
+            <button id="copyBtn" class="btn btn-outline">📋 复制</button>
+        </div>
+
+        <div class="log-header">
+            <span>📋 日志</span>
+            <button id="clearLogBtn" class="btn btn-outline" style="width:auto;padding:2px 12px;font-size:12px;">清空</button>
+        </div>
+        <div class="log-box" id="logBox">⚡ 等待操作...</div>
+    </div>
+
+    <script>
+        // ====== 配置 ======
+        const WORKER_URL = 'https://kajiaxia-proxy.n6461233.workers.dev';
+        const AUTH_TOKEN = 'kajiaxia2026';
+        const COUNTRY = 'usa';
+        const OPERATOR = 'virtual51';
+        const PRODUCT = 'blizzard';
+
+        const logBox = document.getElementById('logBox');
+        const apiKeyInput = document.getElementById('apiKey');
+        const buyBtn = document.getElementById('buyBtn');
+        const finishBtn = document.getElementById('finishBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const card = document.getElementById('card');
+        const cardPhone = document.getElementById('cardPhone');
+        const cardDetails = document.getElementById('cardDetails');
+        const codeDisplay = document.getElementById('codeDisplay');
+        const codeText = document.getElementById('codeText');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearLogBtn = document.getElementById('clearLogBtn');
+        const smsList = document.getElementById('smsList');
+        const smsContainer = document.getElementById('smsContainer');
+
+        let currentOrder = null;
+        let checkInterval = null;
+        let lastSmsCount = 0;
+
+        function log(msg, type = 'info') {
+            const time = new Date().toLocaleTimeString();
+            const colors = { success: 'success', error: 'error', info: 'info', warn: 'warn' };
+            const cls = colors[type] || 'info';
+            logBox.innerHTML += `<div class="${cls}">[${time}] ${msg}</div>`;
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+
+        function clearLog() { logBox.innerHTML = ''; }
+
+        function showCard(phone, orderId) {
+            card.classList.remove('hidden');
+            cardPhone.textContent = `📱 ${phone}`;
+            cardDetails.textContent = `订单: ${orderId}`;
+            currentOrder = { id: orderId, phone };
+        }
+
+        function hideCard() {
+            card.classList.add('hidden');
+            codeDisplay.classList.add('hidden');
+            smsList.classList.add('hidden');
+            smsContainer.innerHTML = '';
+            currentOrder = null;
+            lastSmsCount = 0;
+            if (checkInterval) { clearInterval(checkInterval);
+                checkInterval = null; }
+        }
+
+        function addSmsItem(code, time) {
+            smsList.classList.remove('hidden');
+            const item = document.createElement('div');
+            item.className = 'sms-item';
+            item.innerHTML = `<span class="code">${code}</span><span class="time">${time || '刚刚'}</span>`;
+            smsContainer.appendChild(item);
+            // 更新最新验证码显示
+            codeText.textContent = code;
+            codeDisplay.classList.remove('hidden');
+        }
+
+        function showCode(code) {
+            codeText.textContent = code;
+            codeDisplay.classList.remove('hidden');
+        }
+
+        // ====== API 调用 ======
+        async function apiCall(endpoint, options = {}) {
+            const apiKey = apiKeyInput.value.trim();
+            if (!apiKey) {
+                log('请先输入 API 密钥', 'error');
+                return null;
+            }
+
+            const url = `${WORKER_URL}/user/${endpoint}`;
+            try {
+                const resp = await fetch(url, {
+                    ...options,
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'X-Auth-Token': AUTH_TOKEN,
+                        'Content-Type': 'application/json',
+                        ...(options.headers || {})
+                    }
+                });
+                const text = await resp.text();
+                if (!resp.ok) {
+                    if (!text.startsWith('{')) {
+                        log(`❌ ${text}`, 'error');
+                        return null;
+                    }
+                    log(`HTTP ${resp.status}: ${text}`, 'error');
+                    return null;
+                }
+                if (text.startsWith('{') || text.startsWith('[')) {
+                    return JSON.parse(text);
+                } else {
+                    log(`❌ ${text}`, 'error');
+                    return null;
+                }
+            } catch (e) {
+                log(`请求异常: ${e.message}`, 'error');
+                return null;
+            }
+        }
+
+        // ====== 购买号码 ======
+        async function buyNumber() {
+            if (!apiKeyInput.value.trim()) {
+                log('请先输入 API 密钥', 'error');
+                return;
+            }
+
+            hideCard();
+            buyBtn.disabled = true;
+            buyBtn.textContent = '⏳ 购买中...';
+            log(`⏳ 购买号码: ${COUNTRY}/${OPERATOR}/${PRODUCT}`, 'info');
+
+            const result = await apiCall(`buy/activation/${COUNTRY}/${OPERATOR}/${PRODUCT}`);
+            buyBtn.disabled = false;
+            buyBtn.textContent = '🚀 购买号码';
+
+            if (!result) return;
+            if (result.error) {
+                log(`❌ 购买失败: ${result.error}`, 'error');
+                return;
+            }
+
+            const phone = result.phone || '未知';
+            const id = result.id || '未知';
+            log(`✅ 购买成功！号码: ${phone} 订单: ${id}`, 'success');
+            showCard(phone, id);
+            log(`⏳ 开始等待验证码...（将持续监听）`, 'info');
+
+            // 重置短信计数
+            lastSmsCount = 0;
+            smsContainer.innerHTML = '';
+            smsList.classList.add('hidden');
+
+            if (checkInterval) clearInterval(checkInterval);
+            let attempts = 0;
+            checkInterval = setInterval(async () => {
+                attempts++;
+                const status = await apiCall(`check/${id}`);
+                if (!status) return;
+
+                // 检查是否有新短信
+                if (status.sms && status.sms.length > lastSmsCount) {
+                    for (let i = lastSmsCount; i < status.sms.length; i++) {
+                        const sms = status.sms[i];
+                        const code = sms.code || sms.text || '未知';
+                        const time = sms.dateTime || '';
+                        const order = i + 1;
+                        log(`🎉 第 ${order} 条短信: ${code}`, 'success');
+                        addSmsItem(code, time);
+                    }
+                    lastSmsCount = status.sms.length;
+                }
+
+                if (status.status === 'FINISHED') {
+                    log('⏰ 订单已完成（超时或已使用）', 'warn');
+                    clearInterval(checkInterval);
+                    checkInterval = null;
+                    return;
+                }
+                if (status.status === 'CANCELED') {
+                    log('❌ 订单已取消', 'error');
+                    clearInterval(checkInterval);
+                    checkInterval = null;
+                    return;
+                }
+                if (attempts % 4 === 0) {
+                    log(`⏳ 等待中... (${attempts * 3}秒)`, 'info');
+                }
+            }, 3000);
+        }
+
+        // ====== 完成订单 ======
+        async function finishOrder() {
+            if (!currentOrder) {
+                log('⚠️ 没有活跃的订单可完成', 'warn');
+                return;
+            }
+            log(`⏳ 完成订单: ${currentOrder.id}`, 'info');
+            const result = await apiCall(`finish/${currentOrder.id}`, { method: 'POST' });
+            if (result && !result.error) {
+                log('✅ 订单已完成', 'success');
+                if (checkInterval) { clearInterval(checkInterval);
+                    checkInterval = null; }
+                hideCard();
+            } else {
+                log(`❌ 完成失败: ${result?.error || '未知错误'}`, 'error');
+            }
+        }
+
+        // ====== 取消订单 ======
+        async function cancelOrder() {
+            if (!currentOrder) {
+                log('⚠️ 没有活跃的订单可取消', 'warn');
+                return;
+            }
+            log(`⏳ 取消订单: ${currentOrder.id}`, 'info');
+            const result = await apiCall(`cancel/${currentOrder.id}`, { method: 'POST' });
+            if (result && !result.error) {
+                log('✅ 订单已取消', 'warn');
+                if (checkInterval) { clearInterval(checkInterval);
+                    checkInterval = null; }
+                hideCard();
+            } else {
+                log(`❌ 取消失败: ${result?.error || '未知错误'}`, 'error');
+            }
+        }
+
+        // ====== 复制验证码 ======
+        copyBtn.addEventListener('click', () => {
+            const code = codeText.textContent;
+            if (code) {
+                navigator.clipboard.writeText(code).then(() => {
+                    log('📋 已复制验证码', 'success');
+                }).catch(() => {
+                    const ta = document.createElement('textarea');
+                    ta.value = code;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                    log('📋 已复制验证码', 'success');
+                });
+            }
+        });
+
+        // ====== 事件绑定 ======
+        buyBtn.addEventListener('click', buyNumber);
+        finishBtn.addEventListener('click', finishOrder);
+        cancelBtn.addEventListener('click', cancelOrder);
+        clearLogBtn.addEventListener('click', clearLog);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.activeElement.tagName !== 'BUTTON') {
+                buyBtn.click();
+            }
+        });
+
+        log('✅ 加载完成，填写 API 密钥后点击「购买号码」', 'success');
+    </script>
+</body>
+</html>
